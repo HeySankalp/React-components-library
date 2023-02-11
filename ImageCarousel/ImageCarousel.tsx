@@ -47,13 +47,7 @@ const ImageCarousal = (props: carouselPropType) => {
     };
 
     const onPaginationClick = (index: number) => {
-        if (visibleIndex < index) {
-            carouselBox?.scrollBy((index - visibleIndex) * boxWidth, 0);   
-        } else if (visibleIndex > index) {
-            carouselBox?.scrollBy((index - visibleIndex) * boxWidth, 0);    
-        } else {
-            return
-        }
+        carouselBox?.scrollBy((index - visibleIndex) * boxWidth, 0);
         setVisibleIndex(index)
     }
 

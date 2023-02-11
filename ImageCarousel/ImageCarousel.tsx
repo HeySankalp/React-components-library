@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import NextArrow from './icons/NextArrow';
 import PrevArrow from './icons/PrevArrow';
 import ImageItem from './ImageItem';
-import  './pakage.css';
+import './pakage.css';
 
 type carouselPropType = {
     imagesArray: string[];
@@ -46,6 +46,17 @@ const ImageCarousal = (props: carouselPropType) => {
         return true;
     };
 
+    const onPaginationClick = (index: number) => {
+        if (visibleIndex < index) {
+            carouselBox?.scrollBy((index - visibleIndex) * boxWidth, 0);   
+        } else if (visibleIndex > index) {
+            carouselBox?.scrollBy((index - visibleIndex) * boxWidth, 0);    
+        } else {
+            return
+        }
+        setVisibleIndex(index)
+    }
+
     const validImages = isValidImageArray(imagesArray);
     return validImages ? (
         <div className='image-carousel-main'>
@@ -83,9 +94,8 @@ const ImageCarousal = (props: carouselPropType) => {
                 props.showPagination
                     ? <div className="paginaion-container">
                         {imagesArray.map((value, index) => (
-                            <a id='anchor' key={index} href={`#${index}`}>
+                            <a onClick={() => onPaginationClick(index)} key={index} >
                                 <div
-                                    id={`${index}`}
                                     className={`paginator-dots ${index === visibleIndex ? 'dot-active' : 'dot-inactive'
                                         }`}
                                 />
